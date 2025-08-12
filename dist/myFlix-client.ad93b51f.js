@@ -160,7 +160,7 @@
       });
     }
   }
-})({"9Lu79":[function(require,module,exports,__globalThis) {
+})({"aYzBG":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -713,7 +713,7 @@ $RefreshReg$(_c, "MyFlixApplication");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react-dom/client":"hrvwu","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q"}],"dVPUn":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react-dom/client":"hrvwu","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"cqYol"}],"dVPUn":[function(require,module,exports,__globalThis) {
 'use strict';
 module.exports = require("ee51401569654d91");
 
@@ -16112,9 +16112,9 @@ module.exports = require("b0f0e6b9e8349dac");
     "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
 })();
 
-},{"6f0162e9ab224cd4":"jMk1U"}],"lJZlQ":[function() {},{}],"eE12q":[function(require,module,exports,__globalThis) {
+},{"6f0162e9ab224cd4":"jMk1U"}],"lJZlQ":[function() {},{}],"cqYol":[function(require,module,exports,__globalThis) {
 "use strict";
-var Refresh = require("a6a428b8a1169648");
+var Refresh = require("87e3b2d1aa309535");
 function debounce(func, delay) {
     {
         let timeout = undefined;
@@ -16152,7 +16152,7 @@ module.exports.init = function() {
             };
         };
         if (typeof window !== 'undefined') {
-            let ErrorOverlay = require("6016b0e4dcb56aee");
+            let ErrorOverlay = require("d15d060709afb477");
             ErrorOverlay.setEditorHandler(function(errorLocation) {
                 let file = `${errorLocation.fileName}:${errorLocation.lineNumber || 1}:${errorLocation.colNumber || 1}`;
                 fetch(module.bundle.devServer + `/__parcel_launch_editor?file=${encodeURIComponent(file)}`);
@@ -16275,11 +16275,11 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"a6a428b8a1169648":"fIy0E","6016b0e4dcb56aee":"8v4il"}],"fIy0E":[function(require,module,exports,__globalThis) {
+},{"87e3b2d1aa309535":"3Akp5","d15d060709afb477":"jwr4H"}],"3Akp5":[function(require,module,exports,__globalThis) {
 'use strict';
-module.exports = require("b0fb04c0883e6751");
+module.exports = require("537e7de056455eda");
 
-},{"b0fb04c0883e6751":"ixBDS"}],"ixBDS":[function(require,module,exports,__globalThis) {
+},{"537e7de056455eda":"4EJxv"}],"4EJxv":[function(require,module,exports,__globalThis) {
 /**
  * @license React
  * react-refresh-runtime.development.js
@@ -16515,7 +16515,7 @@ module.exports = require("b0fb04c0883e6751");
     exports.setSignature = setSignature;
 })();
 
-},{}],"8v4il":[function(require,module,exports,__globalThis) {
+},{}],"jwr4H":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setEditorHandler", ()=>$da9882e673ac146b$export$25a22ac46f1bd016);
@@ -18390,7 +18390,7 @@ function $da9882e673ac146b$var$ErrorOverlay() {
     return null;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV"}],"kA2GV":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fjMLf"}],"fjMLf":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -18420,6 +18420,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["9Lu79","gYcKb"], "gYcKb", "parcelRequireaec4", {}, null, null, "http://localhost:1234")
+},{}]},["aYzBG","gYcKb"], "gYcKb", "parcelRequireaec4", {}, null, null, "http://localhost:1234")
 
 //# sourceMappingURL=myFlix-client.ad93b51f.js.map
