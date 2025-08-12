@@ -3,7 +3,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
+  const [movie, setMovies] = useState([
     {
       id: '687e7c959tc7839eeeec4ad',
       title: "Knocked Up",
@@ -38,12 +38,12 @@ export const MainView = () => {
     );
   }
 
-  if (movies.length === 0) {
+  if (movie.length === 0) {
     return <div>The list is empty!</div>;
   }
   return (
     <div>
-      {movies.map((movie) => (
+      {movie.map((movie) => (
         <MovieCard
           key={movie.id}
           movie={movie}
