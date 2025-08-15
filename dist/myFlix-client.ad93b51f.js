@@ -16122,7 +16122,7 @@ var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movie, setMovies] = (0, _react.useState)([
+    const [movies, setMovies] = (0, _react.useState)([
         {
             id: '687e7c959tc7839eeeec4ad',
             title: "Knocked Up",
@@ -16157,7 +16157,7 @@ const MainView = ()=>{
         lineNumber: 37,
         columnNumber: 7
     }, undefined);
-    if (movie.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
@@ -16165,7 +16165,7 @@ const MainView = ()=>{
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: movie.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+        children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                 movie: movie,
                 onMovieClick: (newSelectedMovie)=>{
                     setSelectedMovie(newSelectedMovie);
@@ -16181,7 +16181,7 @@ const MainView = ()=>{
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "1UZg0zBWBYauar3lf2lq9xnN/yo=");
+_s(MainView, "MAqmwK5DzWRBRgguG2JIoE5gE28=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
