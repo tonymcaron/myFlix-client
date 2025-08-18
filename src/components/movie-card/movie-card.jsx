@@ -14,6 +14,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({
+    image: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

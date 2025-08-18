@@ -8,19 +8,18 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    fetch(
-      //API URL TO FETCH MOVIES
-    )
+    fetch("https://tonys-flix-9de78e076f9d.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.docs.map((doc) => {
+        const moviesFromApi = data.map((doc) => {
+          console.log("api image path: ", doc.ImagePath);
           return {
             id: doc._id,
-            title: doc.title,
-            description: doc.description,
-            genre: doc.genre,
-            director: doc.director,
-            image: doc.imagePath
+            title: doc.Title,
+            description: doc.Description,
+            genre: doc.Genre,
+            director: doc.Director,
+            image: doc.ImagePath
           };
         });
 
