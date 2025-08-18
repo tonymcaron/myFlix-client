@@ -12,7 +12,6 @@ export const MainView = () => {
       .then((response) => response.json())
       .then((data) => {
         const moviesFromApi = data.map((doc) => {
-          console.log("api image path: ", doc.ImagePath);
           return {
             id: doc._id,
             title: doc.Title,
