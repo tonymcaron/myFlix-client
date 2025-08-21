@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
-// import { SignupView } from "../signup-view/signup-view";
+import { SignupView } from "../signup-view/signup-view";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -22,14 +22,14 @@ export const MainView = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.map((doc) => {
+        const moviesFromApi = data.map((movie) => {
           return {
-            id: doc._id,
-            title: doc.Title,
-            description: doc.Description,
-            genre: doc.Genre,
-            director: doc.Director,
-            image: doc.ImagePath
+            id: movie._id,
+            title: movie.Title,
+            description: movie.Description,
+            genre: movie.Genre,
+            director: movie.Director,
+            image: movie.ImagePath
           };
         });
 
@@ -46,29 +46,18 @@ export const MainView = () => {
             setToken(token);
           }}
         />
-        {/* or */}
-        {/* <SignupView /> */}
+        or
+        <SignupView />
       </>
     );
   }
 
   if (selectedMovie) {
     return (
-      <>
-        <button
-          onClick={() => {
-            setUser(null);
-            setToken(null);
-            localStorage.clear();
-          }}
-        >
-          Logout
-        </button>
-        <MovieView
-          movie={selectedMovie}
-          onBackClick={() => setSelectedMovie(null)}
-        />
-      </>
+      <MovieView
+        movie={selectedMovie}
+        onBackClick={() => setSelectedMovie(null)}
+      />
     );
   }
 
