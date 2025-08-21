@@ -19515,10 +19515,10 @@ const LoginView = ({ onLoggedIn })=>{
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
-            Username: username,
-            Password: password
+            username: username,
+            password: password
         };
-        fetch("https://tonys-flix-9de78e076f9d.herokuapp.com/users", {
+        fetch("https://tonys-flix-9de78e076f9d.herokuapp.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -19529,7 +19529,7 @@ const LoginView = ({ onLoggedIn })=>{
             if (data.user) {
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", data.token);
-                onLoggenIn(data.user, data.token);
+                onLoggedIn(data.user, data.token);
             } else alert("No such user");
         }).catch((e)=>{
             alert("Something went wrong");
