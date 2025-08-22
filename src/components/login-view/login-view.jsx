@@ -8,8 +8,8 @@ export const LoginView = ({ onLoggedIn }) => {
     event.preventDefault();
 
     const data = {
-      username: username,
-      password: password
+      Username: username,
+      Password: password
     };
 
     fetch("https://tonys-flix-9de78e076f9d.herokuapp.com/login", {

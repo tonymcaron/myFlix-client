@@ -16245,7 +16245,7 @@ $RefreshReg$(_c, "MainView");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../movie-card/movie-card":"6BY1s","../movie-view/movie-view":"dkfGy","../login-view/login-view":"8ru9P","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q","../signup-view/signup-view":"nAl3Z"}],"6BY1s":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../movie-card/movie-card":"6BY1s","../movie-view/movie-view":"dkfGy","../login-view/login-view":"8ru9P","../signup-view/signup-view":"nAl3Z","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q"}],"6BY1s":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$f387 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$f387.init();
 var prevRefreshReg = globalThis.$RefreshReg$;
@@ -19515,8 +19515,8 @@ const LoginView = ({ onLoggedIn })=>{
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
-            username: username,
-            password: password
+            Username: username,
+            Password: password
         };
         fetch("https://tonys-flix-9de78e076f9d.herokuapp.com/login", {
             method: "POST",
@@ -19646,8 +19646,8 @@ const SignupView = ()=>{
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((respons)=>{
-            if (Response.ok) {
+        }).then((response)=>{
+            if (response.ok) {
                 alert("Signup successful");
                 window.location.reload();
             } else alert("Signup failed");
@@ -19778,6 +19778,6 @@ $RefreshReg$(_c, "SignupView");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q","react":"jMk1U"}],"lJZlQ":[function() {},{}]},["9Lu79","gYcKb"], "gYcKb", "parcelRequireaec4", {}, null, null, "http://localhost:1234")
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q"}],"lJZlQ":[function() {},{}]},["9Lu79","gYcKb"], "gYcKb", "parcelRequireaec4", {}, null, null, "http://localhost:1234")
 
 //# sourceMappingURL=myFlix-client.ad93b51f.js.map

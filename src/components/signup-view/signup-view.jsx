@@ -22,8 +22,8 @@ export const SignupView = () => {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then((respons) => {
-      if (Response.ok) {
+    }).then((response) => {
+      if (response.ok) {
         alert("Signup successful");
         window.location.reload();
       } else {
