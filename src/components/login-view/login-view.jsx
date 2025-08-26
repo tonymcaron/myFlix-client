@@ -41,23 +41,27 @@ export const LoginView = ({ onLoggedIn }) => {
       <Form.Group controlId="formUsername">
         <Form.Label>Username:</Form.Label>
         <Form.Control
+          style={{ borderColor: "OrangeRed" }}
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
           minLength="3"
+          placeholder="Enter username"
         />
       </Form.Group>
 
       <Form.Group controlId="formPassword">
         <Form.Label>Password:</Form.Label>
         <Form.Control
+          style={{ borderColor: "OrangeRed" }}
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          placeholder="Enter password"
         />
-      </Form.Group>
+      </Form.Group> <br />
       <Button variant="primary" type="submit">
         Submit
       </Button>
