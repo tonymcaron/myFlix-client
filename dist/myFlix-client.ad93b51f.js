@@ -16204,6 +16204,7 @@ const MainView = ()=>{
         }, undefined) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                    className: "my-4",
                     onClick: ()=>{
                         setUser(null);
                         setToken(null);

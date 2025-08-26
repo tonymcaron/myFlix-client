@@ -61,7 +61,7 @@ export const MainView = () => {
         </Col>
       ) : movies.length === 0 ? (
         <>
-          <Button
+          <Button className="my-4"
             onClick={() => {
               setUser(null);
               setToken(null);
