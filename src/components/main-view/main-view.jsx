@@ -73,7 +73,7 @@ export const MainView = () => {
         </>
       ) : (
         <>
-          <Button
+          <Button className="my-4"
             variant="primary"
             onClick={() => {
               setUser(null);
@@ -94,9 +94,7 @@ export const MainView = () => {
             </Col>
           ))}
         </>
-
       )}
-
     </Row>
   );
 };

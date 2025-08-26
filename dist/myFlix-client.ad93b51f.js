@@ -16226,6 +16226,7 @@ const MainView = ()=>{
         }, void 0, true) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                    className: "my-4",
                     variant: "primary",
                     onClick: ()=>{
                         setUser(null);
