@@ -53,7 +53,7 @@ export const MainView = () => {
       <NavigationBar
         user={user}
         onLoggedOut={() => {
-          storedUser(null)
+          setUser(null)
           setToken(null)
           localStorage.clear();
         }}
