@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="primary" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/">
-          myFlix
+        <Navbar.Brand as={Link} to="/"><strong>
+          <h2>myFlix</h2>
+        </strong>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -14,23 +15,23 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
             {!user && (
               <>
                 <Nav.Link as={Link} to="/login">
-                  Login
+                  <strong>Login</strong>
                 </Nav.Link>
                 <Nav.Link as={Link} to="/signup">
-                  Signup
+                  <strong>Signup</strong>
                 </Nav.Link>
               </>
             )}
             {user && (
               <>
                 <Nav.Link as={Link} to="/">
-                  Movies
+                  <strong>Movies</strong>
                 </Nav.Link>
                 <Nav.Link as={Link} to="/profile">
-                  Profile
+                  <strong>Profile</strong>
                 </Nav.Link>
                 <Nav.Link onClick={onLoggedOut}>
-                  Logout
+                  <strong>Logout</strong>
                 </Nav.Link>
               </>
             )}
