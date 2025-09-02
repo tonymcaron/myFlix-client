@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { normalizeUser } from "../../utils/normalizeUser";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -23,14 +24,15 @@ export const SignupView = () => {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then((response) => {
-      if (response.ok) {
-        alert("Signup successful");
-        window.location.reload();
-      } else {
-        alert("Signup failed");
-      }
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Signup successful");
+          window.location.reload();
+        } else {
+          alert("Signup failed");
+        }
+      });
   };
 
   return (

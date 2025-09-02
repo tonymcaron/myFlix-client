@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { normalizeUser } from "../../utils/normalizeUser";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -15,21 +16,15 @@ export const LoginView = ({ onLoggedIn }) => {
 
     fetch("https://tonys-flix-9de78e076f9d.herokuapp.com/login", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
+      body: JSON.stringify({ Username: username, Password: password }),
+      headers: { "Content-Type": "application/json" }
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Login response: ", data);
-        if (data.user) {
-          localStorage.setItem("user", JSON.stringify(data.user));
-          localStorage.setItem("token", data.token);
-          onLoggedIn(data.user, data.token);
-        } else {
-          alert("No such user");
-        }
+        const normalizedUser = normalizeUser(data.user);
+        localStorage.setItem("user", JSON.stringify(normalizedUser));
+        setUsername(normalizedUser);
       })
       .catch((e) => {
         alert("Something went wrong");

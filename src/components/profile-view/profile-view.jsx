@@ -1,5 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { Button, Form, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { normalizeUser } from "../../utils/normalizeUser";
 
 export const ProfileView = ({ movies }) => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -11,7 +13,7 @@ export const ProfileView = ({ movies }) => {
   const [username, setUsername] = useState(user?.Username || "");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState(user?.Email || "");
-  const [birthday, setBirthday] = useState(user?.Birthday || "01/01/0001");
+  const [birthday, setBirthday] = useState(user?.Birthday || "");
 
   if (!Array.isArray(movies)) {
     return <div>No movies loaded yet.</div>;
@@ -25,69 +27,65 @@ export const ProfileView = ({ movies }) => {
     )
   }
 
-  const favoriteMovies = movies.filter((movie) => user.FavoriteMovies?.includes(movie._id));
+  const favoriteMovies = movies.filter((movie) => user.FavoriteMovies.includes(movie.id)
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = {
-      Username: username,
-      ...(password && { Password: password }),
-      Email: email,
-      Birthday: birthday,
+      username: username,
+      ...(password && { password: password }),
+      email: email,
+      birthday: birthday,
     };
 
     fetch(`https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.Username}`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${"token"}`,
         "Content-Type": "application/json",
       },
-    }
-    ).then((response) => {
-      if (response.ok) {
-        alert("Profile update successful");
-        response.json().then((updatedUser) => {
-          localStorage.setItem("user", JSON.stringify(updatedUser));
-          setUser(updatedUser);
-        });
-      } else {
-        alert("Profile update failed");
-      }
-    });
+    })
+      .then((response) => response.json())
+      .then((updatedUser) => {
+        const normalizedUser = normalizeUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(normalizedUser));
+        setUser(normalizedUser);
+      });
   };
 
-  const removeFav = (movieId) => {
-    fetch(`https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.Username}/movies/${movieId}`,
-      {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    ).then((response) => {
-      if (response.ok) {
-        const updatedUser = {
-          ...user,
-          FavoriteMovies: user.FavoriteMovies.filter((id) => id !== movieId),
-        };
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser);
-      } else {
-        alert("Failed to remove movie from favorites");
-      }
-    });
-  };
+  // const removeFav = (movieId) => {
+  //   fetch(`https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.Username}/movies/${movieId}`,
+  //     {
+  //       method: "DELETE",
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     }
+  //   ).then((response) => {
+  //     if (response.ok) {
+  //       const updatedUser = {
+  //         ...user,
+  //         FavoriteMovies: user.FavoriteMovies.filter((id) => id !== movieId),
+  //       };
+  //       localStorage.setItem("user", JSON.stringify(updatedUser));
+  //       setUser(updatedUser);
+  //     } else {
+  //       alert("Failed to remove movie from favorites");
+  //     }
+  //   });
+  // };
 
   return (
     <div className="profile-container">
-      <Card>
+      <Card className="mb-4">
         <Card.Body>
-          <h4>{user.Username}'s Profile</h4>
-          <p>Email: {user.Email}</p>
+          <h4>{user.username}'s Profile</h4>
+          <p>Email: {user.email}</p>
         </Card.Body>
       </Card>
 
-      <Form onSubmit={handleSubmit}>
+      <Form className="mb-4" onSubmit={handleSubmit}>
         <h3>Update your info</h3>
         <Form.Group controlId="formUsername">
           <Form.Label>Username:</Form.Label>
@@ -144,19 +142,25 @@ export const ProfileView = ({ movies }) => {
 
       <div>
         <h3>Your favorite movies list</h3>
-        {favoriteMovies.map((movies) => (
-          <div key={movies._id}>
-            <img src={movies.ImagePath} alt={movie.Title} />
-            <Link to={`/movies/${movies._id}`}>
-              <h4>{movies.Title}</h4>
-            </Link>
-            <Button
-              variant="secondary"
-              onClick={() => removeFav(movies._id)}>
-              Remove from favorites
-            </Button>
-          </div>
-        ))}
+        {favoriteMovies.length === 0 ? (
+          <p>No movies in your list yet. <br />
+            <Link to="/">Browse movies</Link>
+          </p>
+        ) : (
+          favoriteMovies.map((movies) => (
+            <div key={movies.id}>
+              <img src={movies.image} alt={movie.title} />
+              <Link to={`/movies/${movies.id}`}>
+                <h4>{movies.title}</h4>
+              </Link>
+              <Button
+                variant="secondary"
+                onClick={() => removeFav(movies.id)}>
+                Remove from favorites
+              </Button>
+            </div>
+          ))
+        )}
       </div>
 
     </div>

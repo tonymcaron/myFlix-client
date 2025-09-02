@@ -7,10 +7,13 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import { Row, Button, Col } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { normalizeMovie } from "../../utils/normalizeMovie";
+import { normalizeUser } from "../../utils/normalizeUser";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
+
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
@@ -25,27 +28,10 @@ export const MainView = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.map((movie) => {
-          return {
-            id: movie._id,
-            title: movie.Title,
-            description: movie.Description,
-            genre: {
-              name: movie.Genre.Name,
-              description: movie.Genre.Description
-            },
-            director: {
-              name: movie.Director.Name,
-              bio: movie.Director.Bio,
-              birth: movie.Director.Birth,
-              death: movie.Director.Death
-            },
-            image: movie.ImagePath
-          };
-        });
-
-        setMovies(moviesFromApi);
-      });
+        const normalizedMovies = data.map(normalizeMovie);
+        setMovies(normalizedMovies);
+      })
+      .catch((err) => console.error("Error fetching movies:", err));
   }, [token]);
 
   const addFavorite = (movieId) => {
@@ -62,8 +48,9 @@ export const MainView = () => {
       .then((response) => response.json())
       .then((updatedUser) => {
         if (updatedUser) {
-          setUser(updatedUser);
-          localStorage.setItem("user", JSON.stringify(updatedUser));
+          const normalizedUser = normalizeUser(updatedUser);
+          setUser(normalizedUser);
+          localStorage.setItem("user", JSON.stringify(normalizeduser));
           alert("Movie added to favorites!");
         }
       })
@@ -80,14 +67,12 @@ export const MainView = () => {
         },
       }
     )
-      .then((response) => {
-        if (response.ok) {
-          const updatedUser = {
-            ...user,
-            FavoriteMovies: user.FavoriteMovies.filter((id) => id !== movieId),
-          };
-          setUser(updatedUser);
-          localStorage.setItem("user", JSON.stringify(updatedUser));
+      .then((response) => response.json())
+      .then((updatedUser) => {
+        if (updatedUser) {
+          const normalizedUser = normalizeUser(updatedUser);
+          setUser(normalizedUser);
+          localStorage.setItem("user", JSON.stringify(normalizedUser));
           alert("Movie removed from favorites!");
         }
       })
@@ -128,7 +113,12 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <LoginView onLoggedIn={(user) => setUser(user)} />
+                    <LoginView onLoggedIn={(user, token) => {
+                      const normalizedUser = normalizeUser(user);
+                      setUser(normalizedUser);
+                      setToken(token);
+                      localStorage.setItem("user", JSON.stringify(normalizedUser));
+                    }} />
                   </Col>
                 )}
               </>
@@ -175,10 +165,9 @@ export const MainView = () => {
             element={
               !user ? (
                 <Navigate to="/login" replace />
-
               ) : (
                 <Col md={8}>
-                  <ProfileView user={user} movies={movies} />
+                  <ProfileView user={user} movies={movies} removeFavorite={removeFavorite} />
                 </Col>
               )
             }
