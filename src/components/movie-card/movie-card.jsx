@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const MovieCard = ({ movie }) => {
+export const MovieCard = ({ movie, addFavorite, removeFavorite }) => {
+
   return (
     <Card className="h-100">
       <Card.Img variant="top" src={movie.image} />
@@ -11,8 +12,14 @@ export const MovieCard = ({ movie }) => {
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>Director: {movie.director.name}</Card.Text>
         <Link to={`/movies/${movie.id}`}>
-          <Button variant="link">Open</Button>
+          <Button className="m-2" variant="link">View details</Button>
         </Link>
+        <Button className="m-2" variant="primary" onClick={() => addFavorite(movie.id)}>
+          Add to favorites
+        </Button>
+        <Button className="m-2" variant="danger" onClick={() => removeFavorite(movie.id)}>
+          Remove from favorites
+        </Button>
       </Card.Body>
     </Card>
   );
@@ -35,4 +42,7 @@ MovieCard.propTypes = {
       death: PropTypes.string
     })
   }).isRequired,
+  user: PropTypes.object.isRequired,
+  setUser: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
 };

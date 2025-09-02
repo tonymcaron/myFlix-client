@@ -15,7 +15,6 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
 
-
   useEffect(() => {
     if (!token) {
       return;
@@ -48,6 +47,52 @@ export const MainView = () => {
         setMovies(moviesFromApi);
       });
   }, [token]);
+
+  const addFavorite = (movieId) => {
+    fetch(
+      `https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.Username}/movies/${movieId}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      }
+    )
+      .then((response) => response.json())
+      .then((updatedUser) => {
+        if (updatedUser) {
+          setUser(updatedUser);
+          localStorage.setItem("user", JSON.stringify(updatedUser));
+          alert("Movie added to favorites!");
+        }
+      })
+      .catch((err) => console.error("Error adding favorite:", err));
+  };
+
+  const removeFavorite = (movieId) => {
+    fetch(
+      `https://tonys-flix-9de78e076f9d.herokuapp.com/user/${user.Username}/movies/${movieId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          const updatedUser = {
+            ...user,
+            FavoriteMovies: user.FavoriteMovies.filter((id) => id !== movieId),
+          };
+          setUser(updatedUser);
+          localStorage.setItem("user", JSON.stringify(updatedUser));
+          alert("Movie removed from favorites!");
+        }
+      })
+      .catch((e) => console.error("Error removing favorite", e));
+  };
 
   return (
     <BrowserRouter>
@@ -99,7 +144,7 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} />
+                    <MovieView movies={movies} addFavorite={addFavorite} removeFavorite={removeFavorite} />
                   </Col>
                 )}
               </>
@@ -117,7 +162,7 @@ export const MainView = () => {
                   <>
                     {movies.map((movie) => (
                       <Col className="mb-4" key={movie.id} md={3}>
-                        <MovieCard movie={movie} />
+                        <MovieCard movie={movie} addFavorite={addFavorite} removeFavorite={removeFavorite} />
                       </Col>
                     ))}
                   </>
