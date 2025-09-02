@@ -33492,12 +33492,12 @@ const ProfileView = ({ movies })=>{
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
-            username: username,
+            Username: username,
             ...password && {
-                password: password
+                Password: password
             },
-            email: email,
-            birthday: birthday
+            Email: email,
+            Birthday: birthday
         };
         fetch(`https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.Username}`, {
             method: "PUT",

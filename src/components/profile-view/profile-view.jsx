@@ -34,10 +34,10 @@ export const ProfileView = ({ movies }) => {
     event.preventDefault();
 
     const data = {
-      username: username,
-      ...(password && { password: password }),
-      email: email,
-      birthday: birthday,
+      Username: username,
+      ...(password && { Password: password }),
+      Email: email,
+      Birthday: birthday,
     };
 
     fetch(`https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.Username}`, {
