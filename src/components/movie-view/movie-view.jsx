@@ -35,6 +35,7 @@ export const MovieView = ({ movies, addFavorite, removeFavorite }) => {
       <Link to="/" className="m-2">
         <Button
           className="back-button"
+          variant="link"
           style={{ cursor: "pointer" }}>
           Back
         </Button>

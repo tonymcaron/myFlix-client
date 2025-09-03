@@ -1,6 +1,8 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { MovieCard } from "../movie-card/movie-card";
+import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
 
 export const ProfileView = ({ movies }) => {
@@ -27,7 +29,7 @@ export const ProfileView = ({ movies }) => {
     )
   }
 
-  const favoriteMovies = movies.filter((movie) => user.FavoriteMovies.includes(movie.id)
+  const favoriteMovies = movies.filter(m => user.FavoriteMovies?.includes(movies.id)
   );
 
   const handleSubmit = (event) => {
@@ -40,7 +42,7 @@ export const ProfileView = ({ movies }) => {
       Birthday: birthday,
     };
 
-    fetch(`https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.Username}`, {
+    fetch(`https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.username}`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
@@ -56,32 +58,13 @@ export const ProfileView = ({ movies }) => {
       });
   };
 
-  // const removeFav = (movieId) => {
-  //   fetch(`https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.Username}/movies/${movieId}`,
-  //     {
-  //       method: "DELETE",
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     }
-  //   ).then((response) => {
-  //     if (response.ok) {
-  //       const updatedUser = {
-  //         ...user,
-  //         FavoriteMovies: user.FavoriteMovies.filter((id) => id !== movieId),
-  //       };
-  //       localStorage.setItem("user", JSON.stringify(updatedUser));
-  //       setUser(updatedUser);
-  //     } else {
-  //       alert("Failed to remove movie from favorites");
-  //     }
-  //   });
-  // };
-
   return (
     <div className="profile-container">
       <Card className="mb-4">
         <Card.Body>
           <h4>{user.username}'s Profile</h4>
           <p>Email: {user.email}</p>
+          <p className="mb-0">Birthday (correct this format): {user.birthday}</p>
         </Card.Body>
       </Card>
 
@@ -143,7 +126,7 @@ export const ProfileView = ({ movies }) => {
       <div>
         <h3>Your favorite movies list</h3>
         {favoriteMovies.length === 0 ? (
-          <p>No movies in your list yet. <br />
+          <p>No movies in your list. <br />
             <Link to="/">Browse movies</Link>
           </p>
         ) : (
