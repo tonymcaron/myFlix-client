@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Card } from "react-bootstrap";
+import { Button, Form, Card, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { normalizeMovie } from "../../utils/normalizeMovie";
@@ -29,7 +29,7 @@ export const ProfileView = ({ movies }) => {
     )
   }
 
-  const favoriteMovies = movies.filter(m => user.FavoriteMovies?.includes(movies.id)
+  const favoriteMovies = movies.filter(m => user.FavoriteMovies?.includes(m.id)
   );
 
   const handleSubmit = (event) => {
@@ -58,18 +58,26 @@ export const ProfileView = ({ movies }) => {
       });
   };
 
+  console.log("Favorite movies:", favoriteMovies); // Debugging line
   return (
-    <div className="profile-container">
-      <Card className="mb-4">
-        <Card.Body>
-          <h4>{user.username}'s Profile</h4>
-          <p>Email: {user.email}</p>
-          <p className="mb-0">Birthday (correct this format): {user.birthday}</p>
-        </Card.Body>
-      </Card>
+    <>
+      <Row className="profile-container">
+        <Card className="mb-4">
+          <Card.Body>
+            <h4>{user.username}'s Profile</h4>
+            <p className="mb-2">
+              <strong>Email:</strong> {user.email}
+            </p>
+            <p className="mb-0">
+              <strong>Birthday</strong> (correct this format): {user.birthday}
+            </p>
+          </Card.Body>
+        </Card>
+      </Row>
 
       <Form className="mb-4" onSubmit={handleSubmit}>
-        <h3>Update your info</h3>
+        <h5><strong>Update Your Info</strong></h5>
+        <p>All fields required.  Reenter current info to keep the same</p>
         <Form.Group controlId="formUsername">
           <Form.Label>Username:</Form.Label>
           <Form.Control
@@ -123,31 +131,39 @@ export const ProfileView = ({ movies }) => {
         </Button>
       </Form>
 
-      <div>
-        <h3>Your favorite movies list</h3>
+      <Row>
+        <h5><strong>Your Favorite Movies List</strong></h5>
         {favoriteMovies.length === 0 ? (
-          <p>No movies in your list. <br />
-            <Link to="/">Browse movies</Link>
-          </p>
-        ) : (
-          favoriteMovies.map((movies) => (
-            <div key={movies.id}>
-              <img src={movies.image} alt={movie.title} />
-              <Link to={`/movies/${movies.id}`}>
-                <h4>{movies.title}</h4>
+          <Col>
+            <p>
+              No movies in your list. <br />
+              <Link to="/">
+                Browse movies
+              </Link>
+            </p>
+          </Col>
+        ) : favoriteMovies.length > 0 ? (
+          favoriteMovies.map((movie) => (
+            <Col key={movie.id}>
+              <img src={movie.image} alt={movie.title} />
+              <Link to={`/movies/${movie.id}`}>
+                <h4>{movie.title}</h4>
               </Link>
               <Button
                 variant="secondary"
-                onClick={() => removeFav(movies.id)}>
+                onClick={() => removeFavorite(movie.id)}
+              >
                 Remove from favorites
               </Button>
-            </div>
-          ))
-        )}
-      </div>
 
-    </div>
+            </Col>
+          ))
+        ) : (
+          <p>Loading movies</p>
+        )}
+      </Row >
+    </>
   );
 
 
-}
+};
