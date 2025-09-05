@@ -10,27 +10,29 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
 
-// const normalizeMovie = (movie) => ({
-//   id: movie._id,
-//   title: movie.Title,
-//   description: movie.Description,
-//   genre: {
-//     name: movie.Genre?.Name,
-//     description: movie.Genre?.Description
-//   },
-//   director: {
-//     name: movie.Director?.Name,
-//     bio: movie.Director?.Bio,
-//     birth: movie.Director?.Birth,
-//     death: movie.Director?.Death
-//   },
-//   image: movie.ImagePath
-// });
+const normalizeMovie = (movie) => ({
+  id: movie._id,
+  title: movie.Title,
+  description: movie.Description,
+  genre: {
+    name: movie.Genre?.Name,
+    description: movie.Genre?.Description
+  },
+  director: {
+    name: movie.Director?.Name,
+    bio: movie.Director?.Bio,
+    birth: movie.Director?.Birth,
+    death: movie.Director?.Death
+  },
+  image: movie.ImagePath
+});
 
-// const normalizeUser = (user) => ({
-//   ...user,
-//   FavoriteMovies: user.FavoriteMovies?.map((id) => id.toString()) || []
-// });
+const normalizeUser = (user) => ({
+  username: user.Username,
+  email: user.Email,
+  birthday: user.Birthday,
+  FavoriteMovies: user.FavoriteMovies?.map((id) => id.toString()) || []
+});
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));

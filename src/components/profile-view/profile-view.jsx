@@ -5,11 +5,11 @@ import { MovieCard } from "../movie-card/movie-card";
 import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
 
-export const ProfileView = ({ movies }) => {
+export const ProfileView = ({ user, movies, removeFavorite }) => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
 
-  const [user, setUser] = useState(storedUser);
+  // const [user, setUser] = useState(storedUser);
   const [token] = useState(storedToken);
 
   const [username, setUsername] = useState(user?.Username || "");
@@ -53,12 +53,19 @@ export const ProfileView = ({ movies }) => {
       .then((response) => response.json())
       .then((updatedUser) => {
         const normalizedUser = normalizeUser(updatedUser);
-        localStorage.setItem("user", JSON.stringify(normalizedUser));
+        localStorage.setItem("user", JSON.stringify(normalizedUser)
+        );
         setUser(normalizedUser);
       });
+    // .then((updatedUser) => {
+    //   localStorage.setItem("user", JSON.stringify(updatedUser));
+    //   window.location.reload();
+    // })
+    // .catch((err) => console.error("Error updating user:", err));
+
   };
 
-  console.log("Favorite movies:", favoriteMovies); // Debugging line
+  console.log("Favorite movies:", favoriteMovies, movies, storedUser); // Debugging line
   return (
     <>
       <Row className="profile-container">
@@ -78,6 +85,7 @@ export const ProfileView = ({ movies }) => {
       <Form className="mb-4" onSubmit={handleSubmit}>
         <h5><strong>Update Your Info</strong></h5>
         <p>All fields required.  Reenter current info to keep the same</p>
+
         <Form.Group controlId="formUsername">
           <Form.Label>Username:</Form.Label>
           <Form.Control
@@ -125,6 +133,7 @@ export const ProfileView = ({ movies }) => {
             required
           />
         </Form.Group>
+
         <br />
         <Button variant="primary" type="submit">
           Save changes
@@ -142,7 +151,8 @@ export const ProfileView = ({ movies }) => {
               </Link>
             </p>
           </Col>
-        ) : favoriteMovies.length > 0 ? (
+        ) : (
+          // favoriteMovies.length > 0 ? (
           favoriteMovies.map((movie) => (
             <Col key={movie.id}>
               <img src={movie.image} alt={movie.title} />
@@ -158,8 +168,6 @@ export const ProfileView = ({ movies }) => {
 
             </Col>
           ))
-        ) : (
-          <p>Loading movies</p>
         )}
       </Row >
     </>
