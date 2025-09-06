@@ -57,11 +57,34 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
         );
         setUser(normalizedUser);
       });
-    // .then((updatedUser) => {
-    //   localStorage.setItem("user", JSON.stringify(updatedUser));
-    //   window.location.reload();
-    // })
-    // .catch((err) => console.error("Error updating user:", err));
+  };
+
+  const deleteAccount = () => {
+    if (!confirm("Are you sure you want to delete your account?  This action cannot be undone.")
+    ) {
+      const token = localStorage.getItem("token");
+
+      fetch(`https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.username}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${"token"}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Something went wrong.  Failed to delete account");
+          }
+          return response.json();
+        })
+        .then(() => {
+          alert("Account deleted");
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          window.location.reload();
+        })
+        .catch((err) => console.error("Error deleting account:", err));
+    }
 
   };
 
@@ -75,9 +98,13 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
             <p className="mb-2">
               <strong>Email:</strong> {user.email}
             </p>
-            <p className="mb-0">
+            <p className="mb-2">
               <strong>Birthday</strong> (correct this format): {user.birthday}
             </p>
+            <Button variant="danger"
+              onClick={deleteAccount}>
+              DELETE ACCOUNT
+            </Button>
           </Card.Body>
         </Card>
       </Row>
@@ -136,34 +163,38 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
 
         <br />
         <Button variant="primary" type="submit">
-          Save changes
+          Save Changes
         </Button>
       </Form>
 
       <Row>
         <h5><strong>Your Favorite Movies List</strong></h5>
+        <Link to="/" className="mb-2">
+          Browse movies
+        </Link>
         {favoriteMovies.length === 0 ? (
           <Col>
             <p>
               No movies in your list. <br />
-              <Link to="/">
-                Browse movies
-              </Link>
             </p>
           </Col>
         ) : (
           // favoriteMovies.length > 0 ? (
           favoriteMovies.map((movie) => (
-            <Col key={movie.id}>
-              <img src={movie.image} alt={movie.title} />
+            <Col key={movie.id} className="mb-3" xs={12} md={6} lg={3}>
+              <img
+                src={movie.image}
+                alt={movie.title}
+                style={{ width: "100%" }}
+              />
               <Link to={`/movies/${movie.id}`}>
                 <h4>{movie.title}</h4>
               </Link>
               <Button
-                variant="secondary"
+                variant="primary"
                 onClick={() => removeFavorite(movie.id)}
               >
-                Remove from favorites
+                Remove From Favorites
               </Button>
 
             </Col>

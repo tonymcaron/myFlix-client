@@ -37,14 +37,14 @@ export const MovieView = ({ movies, addFavorite, removeFavorite }) => {
           className="back-button"
           variant="link"
           style={{ cursor: "pointer" }}>
-          Back
+          Browse Movies
         </Button>
       </Link>
       <Button className="m-2" variant="primary" onClick={() => addFavorite(movie.id)}>
-        Add to favorites
+        Add To Favorites
       </Button>
-      <Button className="m-2" variant="danger" onClick={() => removeFavorite(movie.id)}>
-        Remove from favorites
+      <Button className="m-2" variant="primary" onClick={() => removeFavorite(movie.id)}>
+        Remove From Favorites
       </Button>
     </div>
   );

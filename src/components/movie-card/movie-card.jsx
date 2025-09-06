@@ -13,13 +13,13 @@ export const MovieCard = ({ movie, addFavorite, removeFavorite }) => {
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>Director: {movie.director.name}</Card.Text>
         <Link to={`/movies/${movie.id}`}>
-          <Button className="m-2" variant="link">View details</Button>
+          <Button className="m-2" variant="link">View Details</Button>
         </Link>
         <Button className="m-2" variant="primary" onClick={() => addFavorite(movie.id)}>
-          Add to favorites
+          Add To Favorites
         </Button>
-        <Button className="m-2" variant="danger" onClick={() => removeFavorite(movie.id)}>
-          Remove from favorites
+        <Button className="m-2" variant="primary" onClick={() => removeFavorite(movie.id)}>
+          Remove From Favorites
         </Button>
       </Card.Body>
     </Card>
