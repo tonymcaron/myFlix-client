@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 // import { MovieCard } from "../movie-card/movie-card";
 // import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
+import "./profile-view.scss";
 
 export const ProfileView = ({ user, movies, removeFavorite }) => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -110,9 +111,9 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
         </Card>
       </Row>
 
-      <Card>
+      <Card className="mb-4">
         <Card.Body>
-          <Form className="mb-4" onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <h5><strong>Update Your Info</strong></h5>
             <p>All fields required.  Reenter current info to keep the same</p>
 
@@ -173,43 +174,46 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
 
 
 
-
-      <Row>
-        <h5><strong>Your Favorite Movies List</strong></h5>
-        <Link to="/" className="mb-2">
-          Browse movies
-        </Link>
-        {favoriteMovies.length === 0 ? (
-          <Col>
-            <p>
-              No movies in your list. <br />
-            </p>
-          </Col>
-        ) : (
-          // favoriteMovies.length > 0 ? (
-          favoriteMovies.map((movie) => (
-            <Col key={movie.id} className="mb-3" xs={12} md={6} lg={3}>
-              <img
-                src={movie.image}
-                alt={movie.title}
-              // style={{ width: "100%" }}
-              />
-              <Link to={`/movies/${movie.id}`}>
-                <h4>{movie.title}</h4>
-              </Link>
-              <Button
-                variant="secondary"
-                onClick={() => removeFavorite(movie.id)}
-              >
-                Remove From Favorites
-              </Button>
-
-            </Col>
-          ))
-        )}
-      </Row >
+      <Card>
+        <Card.Body>
+          <Row>
+            <h5><strong>Your Favorite Movies List</strong></h5>
+            <Link to="/" className="mb-2">
+              Browse movies
+            </Link>
+            {favoriteMovies.length === 0 ? (
+              <Col>
+                <p>
+                  No movies in your list. <br />
+                </p>
+              </Col>
+            ) : (
+              // favoriteMovies.length > 0 ? (
+              favoriteMovies.map((movie) => (
+                <Col key={movie.id} className="mb-3, fav-movie" xs={12} sm={6} lg={3}>
+                  <Figure>
+                    <Link to={`/movies/${movie.id}`}>
+                      <Figure.Image
+                        src={movie.image}
+                        alt={movie.title}
+                      />
+                      <Figure.Caption>
+                        {movie.title}
+                      </Figure.Caption>
+                    </Link>
+                  </Figure>
+                  <Button
+                    variant="secondary"
+                    onClick={() => removeFavorite(movie.id)}
+                  >
+                    Remove From Favorites
+                  </Button>
+                </Col>
+              ))
+            )}
+          </Row >
+        </Card.Body>
+      </Card>
     </>
   );
-
-
 };
