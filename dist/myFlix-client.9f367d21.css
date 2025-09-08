@@ -33,6 +33,10 @@
   display: block;
 }
 
+.card {
+  margin-bottom: 15px;
+}
+
 .my-flix {
   color: #4682b4;
 }

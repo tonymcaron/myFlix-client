@@ -1,7 +1,7 @@
 import { useState } from "react";
 // React, {useEffect}
 import { Button, Form, Card, Row, Col, Figure } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { MovieCard } from "../movie-card/movie-card";
 // import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
@@ -18,6 +18,7 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState(user?.Email || "");
   const [birthday, setBirthday] = useState(user?.Birthday || "");
+  const navigate = useNavigate();
 
   if (!Array.isArray(movies)) {
     return <div>No movies loaded yet.</div>;
@@ -62,8 +63,7 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
   };
 
   const deleteAccount = () => {
-    if (!confirm("Are you sure you want to delete your account?  This action cannot be undone.")
-    ) {
+    if (confirm("Are you sure you want to delete your account?  This action cannot be undone.")) {
       const token = localStorage.getItem("token");
 
       fetch(`https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.username}`, {
@@ -77,13 +77,16 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
           if (!response.ok) {
             throw new Error("Something went wrong.  Failed to delete account");
           }
-          return response.json();
+          if (response.status === 204) {
+            return null;
+          }
+          return response.text().then((text) => (text ? JSON.parse(text) : null));
         })
         .then(() => {
           alert("Account deleted");
-          localStorage.removeItem("user");
-          localStorage.removeItem("token");
-          window.location.reload();
+          localStorage.removeItem(user);
+          localStorage.removeItem(token);
+          navigate("/signup");
         })
         .catch((err) => console.error("Error deleting account:", err));
     }
@@ -94,14 +97,14 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
   return (
     <>
       <Row className="profile-container">
-        <Card className="mb-4">
+        <Card>
           <Card.Body>
             <h4>{user.username}'s Profile</h4>
             <p className="mb-2">
               <strong>Email:</strong> {user.email}
             </p>
             <p className="mb-2">
-              <strong>Birthday</strong> (correct this format): {user.birthday}
+              <strong>Birthday</strong>: {new Date(user.birthday).toLocaleDateString()}
             </p>
             <Button variant="danger"
               onClick={deleteAccount}>
@@ -111,7 +114,7 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
         </Card>
       </Row>
 
-      <Card className="mb-4">
+      <Card>
         <Card.Body>
           <Form onSubmit={handleSubmit}>
             <h5><strong>Update Your Info</strong></h5>
