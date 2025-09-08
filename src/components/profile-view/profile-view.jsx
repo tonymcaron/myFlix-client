@@ -84,8 +84,8 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
         })
         .then(() => {
           alert("Account deleted");
-          localStorage.removeItem(user);
-          localStorage.removeItem(token);
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
           navigate("/signup");
         })
         .catch((err) => console.error("Error deleting account:", err));

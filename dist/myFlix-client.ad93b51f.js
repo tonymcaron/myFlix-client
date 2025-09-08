@@ -33575,8 +33575,8 @@ const ProfileView = ({ user, movies, removeFavorite })=>{
                 return response.text().then((text)=>text ? JSON.parse(text) : null);
             }).then(()=>{
                 alert("Account deleted");
-                localStorage.removeItem(user);
-                localStorage.removeItem(token);
+                localStorage.removeItem("user");
+                localStorage.removeItem("token");
                 navigate("/signup");
             }).catch((err)=>console.error("Error deleting account:", err));
         }
