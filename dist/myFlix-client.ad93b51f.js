@@ -16563,7 +16563,7 @@ $RefreshReg$(_c, "MovieCard");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","prop-types":"GNqOQ","react-bootstrap":"ctEhb","react-router-dom":"61z4w","../../utils/normalizeMovie":"25i0R","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q"}],"GNqOQ":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","prop-types":"GNqOQ","react-bootstrap":"ctEhb","react-router-dom":"61z4w","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q","react":"jMk1U","../../utils/normalizeMovie":"25i0R"}],"GNqOQ":[function(require,module,exports,__globalThis) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -30439,19 +30439,6 @@ function persistAppliedTransitions(_window, transitions) {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV"}],"25i0R":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "normalizeMovie", ()=>normalizeMovie);
-const normalizeMovie = (movie)=>({
-        id: movie._id || movie.id,
-        title: movie.Title || movie.title,
-        image: movie.ImagePath || movie.image,
-        description: movie.Description || movie.description,
-        genre: movie.Genre?.Name || movie.genre,
-        director: movie.Director?.Name || movie.director
-    });
-
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV"}],"eE12q":[function(require,module,exports,__globalThis) {
 "use strict";
 var Refresh = require("a6a428b8a1169648");
@@ -32730,6 +32717,19 @@ function $da9882e673ac146b$var$ErrorOverlay() {
     return null;
 }
 
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV"}],"25i0R":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "normalizeMovie", ()=>normalizeMovie);
+const normalizeMovie = (movie)=>({
+        id: movie._id || movie.id,
+        title: movie.Title || movie.title,
+        image: movie.ImagePath || movie.image,
+        description: movie.Description || movie.description,
+        genre: movie.Genre?.Name || movie.genre,
+        director: movie.Director?.Name || movie.director
+    });
+
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV"}],"dkfGy":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$2262 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$2262.init();
@@ -33093,7 +33093,7 @@ $RefreshReg$(_c, "LoginView");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-bootstrap":"ctEhb","../../utils/normalizeMovie":"25i0R","../../utils/normalizeUser":"cL9JP","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q"}],"cL9JP":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-bootstrap":"ctEhb","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q","../../utils/normalizeMovie":"25i0R","../../utils/normalizeUser":"cL9JP"}],"cL9JP":[function(require,module,exports,__globalThis) {
 // export const normalizeUser = (user) => ({
 //   id: user._id || user.id,
 //   username: user.Username || user.username,
@@ -33322,7 +33322,7 @@ $RefreshReg$(_c, "SignupView");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-bootstrap":"ctEhb","../../utils/normalizeMovie":"25i0R","../../utils/normalizeUser":"cL9JP","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q","react-router-dom":"61z4w"}],"csRzL":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-bootstrap":"ctEhb","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q","react-router-dom":"61z4w","../../utils/normalizeMovie":"25i0R","../../utils/normalizeUser":"cL9JP"}],"csRzL":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$d36d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$d36d.init();
 var prevRefreshReg = globalThis.$RefreshReg$;
@@ -33503,11 +33503,11 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ProfileView", ()=>ProfileView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
-// React, {useEffect}
+var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
-// import { MovieCard } from "../movie-card/movie-card";
-// import { normalizeMovie } from "../../utils/normalizeMovie";
+var _movieCard = require("../movie-card/movie-card");
+var _normalizeMovie = require("../../utils/normalizeMovie");
 var _normalizeUser = require("../../utils/normalizeUser");
 var _profileViewScss = require("./profile-view.scss");
 var _s = $RefreshSig$();
@@ -33965,6 +33965,6 @@ $RefreshReg$(_c, "ProfileView");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-bootstrap":"ctEhb","react-router-dom":"61z4w","../../utils/normalizeUser":"cL9JP","./profile-view.scss":"eyKYH","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q"}],"eyKYH":[function() {},{}],"lJZlQ":[function() {},{}]},["9Lu79","gYcKb"], "gYcKb", "parcelRequireaec4", {}, null, null, "http://localhost:1234")
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-bootstrap":"ctEhb","react-router-dom":"61z4w","../../utils/normalizeUser":"cL9JP","./profile-view.scss":"eyKYH","@parcel/transformer-js/src/esmodule-helpers.js":"kA2GV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"eE12q","../movie-card/movie-card":"6BY1s","../../utils/normalizeMovie":"25i0R"}],"eyKYH":[function() {},{}],"lJZlQ":[function() {},{}]},["9Lu79","gYcKb"], "gYcKb", "parcelRequireaec4", {}, null, null, "http://localhost:1234")
 
 //# sourceMappingURL=myFlix-client.ad93b51f.js.map

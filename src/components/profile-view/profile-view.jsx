@@ -1,9 +1,9 @@
-import { useState } from "react";
-// React, {useEffect}
+import React, { useState, useEffect } from "react";
+
 import { Button, Form, Card, Row, Col, Figure } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-// import { MovieCard } from "../movie-card/movie-card";
-// import { normalizeMovie } from "../../utils/normalizeMovie";
+import { MovieCard } from "../movie-card/movie-card";
+import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
 import "./profile-view.scss";
 
