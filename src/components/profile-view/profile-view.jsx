@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Button, Form, Card, Row, Col } from "react-bootstrap";
+import { useState } from "react";
+// React, {useEffect}
+import { Button, Form, Card, Row, Col, Figure } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { MovieCard } from "../movie-card/movie-card";
-import { normalizeMovie } from "../../utils/normalizeMovie";
+// import { MovieCard } from "../movie-card/movie-card";
+// import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
 
 export const ProfileView = ({ user, movies, removeFavorite }) => {
@@ -46,7 +47,7 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
-        Authorization: `Bearer ${"token"}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     })
@@ -68,7 +69,7 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${"token"}`,
+          Authorization: `Bearer ${token}`,
         },
       })
         .then((response) => {
@@ -109,63 +110,69 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
         </Card>
       </Row>
 
-      <Form className="mb-4" onSubmit={handleSubmit}>
-        <h5><strong>Update Your Info</strong></h5>
-        <p>All fields required.  Reenter current info to keep the same</p>
+      <Card>
+        <Card.Body>
+          <Form className="mb-4" onSubmit={handleSubmit}>
+            <h5><strong>Update Your Info</strong></h5>
+            <p>All fields required.  Reenter current info to keep the same</p>
 
-        <Form.Group controlId="formUsername">
-          <Form.Label>Username:</Form.Label>
-          <Form.Control
-            style={{ borderColor: "OrangeRed" }}
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            minLength="3"
-            placeholder="Enter a new username"
-          />
-        </Form.Group>
+            <Form.Group controlId="formUsername">
+              <Form.Label>Username:</Form.Label>
+              <Form.Control
+                style={{ borderColor: "OrangeRed" }}
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                minLength="3"
+                placeholder="Enter a new username"
+              />
+            </Form.Group>
 
-        <Form.Group controlId="formPassword">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            style={{ borderColor: "OrangeRed" }}
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Enter a new password"
-          />
-        </Form.Group>
+            <Form.Group controlId="formPassword">
+              <Form.Label>Password:</Form.Label>
+              <Form.Control
+                style={{ borderColor: "OrangeRed" }}
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Enter a new password"
+              />
+            </Form.Group>
 
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email:</Form.Label>
-          <Form.Control
-            style={{ borderColor: "OrangeRed" }}
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="Ex: address@email.com"
-          />
-        </Form.Group>
+            <Form.Group controlId="formEmail">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                style={{ borderColor: "OrangeRed" }}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Ex: address@email.com"
+              />
+            </Form.Group>
 
-        <Form.Group controlId="formBirthday">
-          <Form.Label>Birthday:</Form.Label>
-          <Form.Control
-            style={{ borderColor: "OrangeRed" }}
-            type="date"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-            required
-          />
-        </Form.Group>
+            <Form.Group controlId="formBirthday">
+              <Form.Label>Birthday:</Form.Label>
+              <Form.Control
+                style={{ borderColor: "OrangeRed" }}
+                type="date"
+                value={birthday}
+                onChange={(e) => setBirthday(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <br />
+            <Button variant="primary" type="submit">
+              Save Changes
+            </Button>
+          </Form >
+        </Card.Body>
+      </Card>
 
-        <br />
-        <Button variant="primary" type="submit">
-          Save Changes
-        </Button>
-      </Form>
+
+
 
       <Row>
         <h5><strong>Your Favorite Movies List</strong></h5>
@@ -185,13 +192,13 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
               <img
                 src={movie.image}
                 alt={movie.title}
-                style={{ width: "100%" }}
+              // style={{ width: "100%" }}
               />
               <Link to={`/movies/${movie.id}`}>
                 <h4>{movie.title}</h4>
               </Link>
               <Button
-                variant="primary"
+                variant="secondary"
                 onClick={() => removeFavorite(movie.id)}
               >
                 Remove From Favorites

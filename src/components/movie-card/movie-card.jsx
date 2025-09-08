@@ -18,7 +18,7 @@ export const MovieCard = ({ movie, addFavorite, removeFavorite }) => {
         <Button className="m-2" variant="primary" onClick={() => addFavorite(movie.id)}>
           Add To Favorites
         </Button>
-        <Button className="m-2" variant="primary" onClick={() => removeFavorite(movie.id)}>
+        <Button className="m-2" variant="secondary" onClick={() => removeFavorite(movie.id)}>
           Remove From Favorites
         </Button>
       </Card.Body>
