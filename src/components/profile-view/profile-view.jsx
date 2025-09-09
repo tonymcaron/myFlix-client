@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import { Button, Form, Card, Row, Col, Figure } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
@@ -7,11 +6,11 @@ import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
 import "./profile-view.scss";
 
-export const ProfileView = ({ user, movies, removeFavorite }) => {
+export const ProfileView = ({ movies, removeFavorite }) => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
 
-  // const [user, setUser] = useState(storedUser);
+  const [user, setUser] = useState(storedUser);
   const [token] = useState(storedToken);
 
   const [username, setUsername] = useState(user?.Username || "");
@@ -26,9 +25,15 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
 
   if (!user) {
     return (
-      <p>
-        Please log in to view your profile.
-      </p>
+      <>
+        <p>
+          Please <Link as={Link} to="/login">
+            <strong>log in</strong>
+          </Link> or <Link as={Link} to="/signup">
+            <strong>create a profile</strong></Link>
+        </p>
+
+      </>
     )
   }
 
@@ -56,9 +61,9 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
       .then((response) => response.json())
       .then((updatedUser) => {
         const normalizedUser = normalizeUser(updatedUser);
-        localStorage.setItem("user", JSON.stringify(normalizedUser)
-        );
+        localStorage.setItem("user", JSON.stringify(normalizedUser));
         setUser(normalizedUser);
+        window.location.reload();
       });
   };
 
@@ -80,7 +85,7 @@ export const ProfileView = ({ user, movies, removeFavorite }) => {
           if (response.status === 204) {
             return null;
           }
-          return response.text().then((text) => (text ? JSON.parse(text) : null));
+          return response.text();
         })
         .then(() => {
           alert("Account deleted");

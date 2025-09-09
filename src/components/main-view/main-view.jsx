@@ -101,6 +101,7 @@ export const MainView = () => {
           setUser(normalizedUser);
           localStorage.setItem("user", JSON.stringify(normalizedUser));
           alert("Movie removed from favorites!");
+          window.location.reload();
         }
       })
       .catch((err) => console.error("Error removing favorite:", err));
