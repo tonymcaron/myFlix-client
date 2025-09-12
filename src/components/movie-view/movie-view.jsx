@@ -26,11 +26,31 @@ export const MovieView = ({ movies, addFavorite, removeFavorite }) => {
       </div>
       <div>
         <span><strong>Genre: </strong></span>
-        <span>{movie.genre.name}</span>
+        <span>{movie.genre}</span>
+      </div>
+      <div>
+        <span><strong>Genre Description: </strong></span>
+        <span>{movie.genreDesc}</span>
       </div>
       <div>
         <span><strong>Director: </strong></span>
-        <span>{movie.director.name}</span>
+        <span>{movie.director}</span>
+      </div>
+      <div>
+        <span><strong>Director bio: </strong></span>
+        <span>{movie.directorBio}</span>
+      </div>
+      <div>
+        <span><strong>Director Birth Year: </strong></span>
+        <span>{movie.directorBirth}</span>
+      </div>
+      <div>
+        <span><strong>Director Death Year: </strong></span>
+        <span>{movie.directorDeath}</span>
+      </div>
+      <div>
+        <span><strong>Featured: </strong></span>
+        <span>{movie.featured}</span>
       </div>
       <Link to="/" className="m-2">
         <Button

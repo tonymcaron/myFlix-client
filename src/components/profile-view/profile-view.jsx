@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
+
 import "./profile-view.scss";
 
 export const ProfileView = ({ movies, removeFavorite }) => {
@@ -32,7 +33,6 @@ export const ProfileView = ({ movies, removeFavorite }) => {
           </Link> or <Link as={Link} to="/signup">
             <strong>create a profile</strong></Link>
         </p>
-
       </>
     )
   }
@@ -98,7 +98,6 @@ export const ProfileView = ({ movies, removeFavorite }) => {
 
   };
 
-  console.log("Favorite movies:", favoriteMovies, movies, storedUser); // Debugging line
   return (
     <>
       <Row className="profile-container">

@@ -4,5 +4,10 @@ export const normalizeMovie = (movie) => ({
   image: movie.ImagePath || movie.image,
   description: movie.Description || movie.description,
   genre: movie.Genre?.Name || movie.genre,
+  genreDesc: movie.Genre?.Description,
   director: movie.Director?.Name || movie.director,
+  directorBio: movie.Director.Bio,
+  directorBirth: movie.Director.Birth,
+  directorDeath: movie.Director.Death,
+  featured: movie.Featured
 });
