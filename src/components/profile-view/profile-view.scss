@@ -3,9 +3,6 @@
 
   figure {
     position: relative;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     margin: auto;
     width: 100%;
 
@@ -16,6 +13,8 @@
 
     figcaption {
       text-align: center;
+      white-space: normal;
+      word-wrap: break-word;
     }
   }
 

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { normalizeMovie } from "../../utils/normalizeMovie";
-import { normalizeUser } from "../../utils/normalizeUser";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");

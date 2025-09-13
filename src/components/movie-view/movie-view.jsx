@@ -17,6 +17,9 @@ export const MovieView = ({ movies, addFavorite, removeFavorite }) => {
         <img className="w-100" src={movie.image} />
       </div>
       <div>
+        {movie.featured && <h5><strong>FEATURED MOVIE</strong></h5>}
+      </div>
+      <div>
         <span><strong>Title: </strong></span>
         <span>{movie.title}</span>
       </div>
@@ -47,10 +50,6 @@ export const MovieView = ({ movies, addFavorite, removeFavorite }) => {
       <div>
         <span><strong>Director Death Year: </strong></span>
         <span>{movie.directorDeath}</span>
-      </div>
-      <div>
-        <span><strong>Featured: </strong></span>
-        <span>{movie.featured}</span>
       </div>
       <Link to="/" className="m-2">
         <Button

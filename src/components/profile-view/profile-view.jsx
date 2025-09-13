@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button, Form, Card, Row, Col, Figure } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { MovieCard } from "../movie-card/movie-card";
-import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
 
 import "./profile-view.scss";
@@ -27,12 +25,12 @@ export const ProfileView = ({ movies, removeFavorite }) => {
   if (!user) {
     return (
       <>
-        <p>
+        <h4>
           Please <Link as={Link} to="/login">
             <strong>log in</strong>
           </Link> or <Link as={Link} to="/signup">
             <strong>create a profile</strong></Link>
-        </p>
+        </h4>
       </>
     )
   }
@@ -108,7 +106,7 @@ export const ProfileView = ({ movies, removeFavorite }) => {
               <strong>Email:</strong> {user.email}
             </p>
             <p className="mb-2">
-              <strong>Birthday</strong>: {new Date(user.birthday).toLocaleDateString()}
+              <strong>Birthday</strong>: {new Date(user.birthday).toUTCString()}
             </p>
             <Button variant="danger"
               onClick={deleteAccount}>

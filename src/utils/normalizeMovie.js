@@ -9,5 +9,5 @@ export const normalizeMovie = (movie) => ({
   directorBio: movie.Director.Bio,
   directorBirth: movie.Director.Birth,
   directorDeath: movie.Director.Death,
-  featured: movie.Featured
+  featured: movie.Featured,
 });

@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { normalizeMovie } from "../../utils/normalizeMovie";
-import { normalizeUser } from "../../utils/normalizeUser";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
