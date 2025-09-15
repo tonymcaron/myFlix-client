@@ -5,17 +5,17 @@ import { normalizeUser } from "../../utils/normalizeUser";
 
 import "./profile-view.scss";
 
-export const ProfileView = ({ movies, removeFavorite }) => {
+export const ProfileView = ({ movies, removeFavorite, onLoggedOut }) => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
 
   const [user, setUser] = useState(storedUser);
   const [token] = useState(storedToken);
 
-  const [username, setUsername] = useState(user?.Username || "");
+  const [username, setUsername] = useState(user?.username || "");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState(user?.Email || "");
-  const [birthday, setBirthday] = useState(user?.Birthday || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [birthday, setBirthday] = useState(user?.birthday || "");
   const navigate = useNavigate();
 
   if (!Array.isArray(movies)) {
@@ -87,8 +87,7 @@ export const ProfileView = ({ movies, removeFavorite }) => {
         })
         .then(() => {
           alert("Account deleted");
-          localStorage.removeItem("user");
-          localStorage.removeItem("token");
+          onLoggedOut();
           navigate("/signup");
         })
         .catch((err) => console.error("Error deleting account:", err));

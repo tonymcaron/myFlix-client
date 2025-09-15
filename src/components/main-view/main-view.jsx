@@ -57,7 +57,7 @@ export const MainView = () => {
         console.log("Normalized movies:", moviesFromApi);
         setMovies(moviesFromApi);
       })
-      .catch((err) => console.error("Error fetching movies:", err));
+    // .catch((err) => console.error("Error fetching movies:", err));
   }, [token]);
 
   const addFavorite = (movieId) => {
@@ -202,7 +202,16 @@ export const MainView = () => {
                 <Navigate to="/login" replace />
               ) : (
                 <Col md={8}>
-                  <ProfileView user={user} movies={movies} removeFavorite={removeFavorite} />
+                  <ProfileView
+                    user={user}
+                    movies={movies}
+                    removeFavorite={removeFavorite}
+                    onLoggedOut={() => {
+                      setUser(null);
+                      setToken(null);
+                      localStorage.clear();
+                    }}
+                  />
                 </Col>
               )
             }
