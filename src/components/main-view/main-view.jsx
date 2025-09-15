@@ -9,6 +9,8 @@ import { Row, Col } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { normalizeMovie } from "../../utils/normalizeMovie";
 import { normalizeUser } from "../../utils/normalizeUser";
+import { useSelector, useDispatch } from "react-redux";
+import { setMovies } from "../../redux/reducers/movies";
 
 const normalizeMovie = (movie) => ({
   id: movie._id,
@@ -40,11 +42,13 @@ export const MainView = () => {
 
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
-  const [movies, setMovies] = useState([]);
+  // const [movies, setMovies] = useState([]); REMOVED FOR REDUX
+  const movies = useSelector((state) => state.movies);
+  // May need to be 'state.movies.value' ????
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("useEffect triggered with token:", token);
-
     if (!token) return;
 
     fetch("https://tonys-flix-9de78e076f9d.herokuapp.com/movies", {
@@ -52,12 +56,11 @@ export const MainView = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Raw movies from API:", data);
         const moviesFromApi = data.map(normalizeMovie);
-        console.log("Normalized movies:", moviesFromApi);
-        setMovies(moviesFromApi);
+        // setMovies(moviesFromApi); REMOVED FOR REDUX
+        dispatch(setMovies(moviesFromApi));
       })
-    // .catch((err) => console.error("Error fetching movies:", err));
+      .catch((err) => console.error("Error fetching movies:", err));
   }, [token]);
 
   const addFavorite = (movieId) => {
@@ -167,7 +170,12 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} addFavorite={addFavorite} removeFavorite={removeFavorite} />
+                    <MovieView
+                    // movies={movies}
+                    // addFavorite={addFavorite}
+                    // removeFavorite={removeFavorite}
+                    // ^^^ REMOVED FOR REDUX
+                    />
                   </Col>
                 )}
               </>

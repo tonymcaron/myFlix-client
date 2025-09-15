@@ -3,9 +3,11 @@ import { Button } from "react-bootstrap";
 import "./movie-view.scss";
 
 export const MovieView = ({ movies, addFavorite, removeFavorite }) => {
-  const { movieId } = useParams();
+  // const { movieId } = useParams();
+  // const movie = movies.find((b) => b.id === movieId);
+  // REMOVED FOR REDUX
 
-  const movie = movies.find((b) => b.id === movieId);
+  const movies = useSelector((state) => state.movies);
 
   if (!movie) {
     return <div>Movie not found.</div>;
