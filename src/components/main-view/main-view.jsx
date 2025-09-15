@@ -3,164 +3,221 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
-import { Row, Button, Col } from "react-bootstrap";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
+import { Row, Col } from "react-bootstrap";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { normalizeMovie } from "../../utils/normalizeMovie";
+import { normalizeUser } from "../../utils/normalizeUser";
+
+const normalizeMovie = (movie) => ({
+  id: movie._id,
+  title: movie.Title,
+  description: movie.Description,
+  genre: {
+    name: movie.Genre?.Name,
+    description: movie.Genre?.Description
+  },
+  director: {
+    name: movie.Director?.Name,
+    bio: movie.Director?.Bio,
+    birth: movie.Director?.Birth,
+    death: movie.Director?.Death
+  },
+  image: movie.ImagePath
+});
+
+const normalizeUser = (user) => ({
+  username: user.Username,
+  email: user.Email,
+  birthday: user.Birthday,
+  FavoriteMovies: user.FavoriteMovies?.map((id) => id.toString()) || []
+});
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
+
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-
 
   useEffect(() => {
-    if (!token) {
-      return;
-    }
+    console.log("useEffect triggered with token:", token);
+
+    if (!token) return;
 
     fetch("https://tonys-flix-9de78e076f9d.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.map((movie) => {
-          return {
-            id: movie._id,
-            title: movie.Title,
-            description: movie.Description,
-            genre: movie.Genre,
-            director: movie.Director,
-            image: movie.ImagePath
-          };
-        });
-
+        console.log("Raw movies from API:", data);
+        const moviesFromApi = data.map(normalizeMovie);
+        console.log("Normalized movies:", moviesFromApi);
         setMovies(moviesFromApi);
-      });
+      })
+    // .catch((err) => console.error("Error fetching movies:", err));
   }, [token]);
 
+  const addFavorite = (movieId) => {
+    fetch(
+      `https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.username}/movies/${movieId}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      }
+    )
+      .then((response) => response.json())
+      .then((updatedUser) => {
+        if (updatedUser) {
+          const normalizedUser = normalizeUser(updatedUser);
+          setUser(normalizedUser);
+          localStorage.setItem("user", JSON.stringify(normalizedUser));
+          alert("Movie added to favorites!");
+        }
+      })
+      .catch((err) => console.error("Error adding favorite:", err));
+  };
+
+  const removeFavorite = (movieId) => {
+    fetch(
+      `https://tonys-flix-9de78e076f9d.herokuapp.com/users/${user.username}/movies/${movieId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((updatedUser) => {
+        if (updatedUser) {
+          const normalizedUser = normalizeUser(updatedUser);
+          setUser(normalizedUser);
+          localStorage.setItem("user", JSON.stringify(normalizedUser));
+          alert("Movie removed from favorites!");
+          window.location.reload();
+        }
+      })
+      .catch((err) => console.error("Error removing favorite:", err));
+  };
+
   return (
-    <Row className="justify-content-md-center">
-      {!user ? (
-        <Col md={5}>
-          <LoginView
-            onLoggedIn={(user, token) => {
-              setUser(user);
-              setToken(token);
-            }}
+    <BrowserRouter>
+      <NavigationBar
+        user={user}
+        onLoggedOut={() => {
+          setUser(null)
+          setToken(null)
+          localStorage.clear();
+        }}
+      />
+      <Row className="justify-content-md-center">
+        <Routes>
+          {/* signup */}
+          <Route
+            path="/signup"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <Col md={5}>
+                    <SignupView />
+                  </Col>
+                )}
+              </>
+            }
           />
-          or
-          <SignupView />
-        </Col>
-      ) : selectedMovie ? (
-        <Col md={8}>
-          <MovieView
-            movie={selectedMovie}
-            onBackClick={() => setSelectedMovie(null)}
+          {/* login */}
+          <Route
+            path="/login"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <Col md={5}>
+                    <LoginView onLoggedIn={(user, token) => {
+                      const normalizedUser = normalizeUser(user);
+                      setUser(normalizedUser);
+                      setToken(token);
+                      localStorage.setItem("user", JSON.stringify(normalizedUser));
+                      localStorage.setItem("token", token);
+                    }}
+                    />
+                  </Col>
+                )}
+              </>
+            }
           />
-        </Col>
-      ) : movies.length === 0 ? (
-        <>
-          <Button className="my-4"
-            onClick={() => {
-              setUser(null);
-              setToken(null);
-              localStorage.clear();
-            }}
-          >
-            Logout
-          </Button>
-          <div>The list is empty!</div>
-        </>
-      ) : (
-        <>
-          <Button className="my-4"
-            variant="primary"
-            onClick={() => {
-              setUser(null);
-              setToken(null);
-              localStorage.clear();
-            }}
-          >
-            Logout
-          </Button>
-          {movies.map((movie) => (
-            <Col className="mb-4" key={movie.id} md={3}>
-              <MovieCard
-                movie={movie}
-                onMovieClick={(newSelectedMovie) => {
-                  setSelectedMovie(newSelectedMovie);
-                }}
-              />
-            </Col>
-          ))}
-        </>
-      )}
-    </Row>
+          {/* single movie view */}
+          <Route
+            path="/movies/:movieId"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <Col md={8}>
+                    <MovieView movies={movies} addFavorite={addFavorite} removeFavorite={removeFavorite} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          {/* all movies */}
+          <Route
+            path="/"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <>
+                    {movies.map((movie) => (
+                      <Col className="mb-4" key={movie.id} xs={12} sm={6} md={3}>
+                        <MovieCard movie={movie} addFavorite={addFavorite} removeFavorite={removeFavorite} />
+                      </Col>
+                    ))}
+                  </>
+                )}
+              </>
+            }
+          />
+          {/* profile */}
+          <Route
+            path="/profile"
+            element={
+              !user ? (
+                <Navigate to="/login" replace />
+              ) : (
+                <Col md={8}>
+                  <ProfileView
+                    user={user}
+                    movies={movies}
+                    removeFavorite={removeFavorite}
+                    onLoggedOut={() => {
+                      setUser(null);
+                      setToken(null);
+                      localStorage.clear();
+                    }}
+                  />
+                </Col>
+              )
+            }
+          />
+        </Routes>
+      </Row >
+    </BrowserRouter >
   );
 };
-
-//   if (!user) {
-//     return (
-//       <>
-//         <LoginView
-//           onLoggedIn={(user, token) => {
-//             setUser(user);
-//             setToken(token);
-//           }}
-//         />
-//         or
-//         <SignupView />
-//       </>
-//     );
-//   }
-
-//   if (selectedMovie) {
-//     return (
-//       <MovieView
-//         movie={selectedMovie}
-//         onBackClick={() => setSelectedMovie(null)}
-//       />
-//     );
-//   }
-
-//   if (movies.length === 0) {
-//     return (
-//       <>
-//         <button
-//           onClick={() => {
-//             setUser(null);
-//             setToken(null);
-//             localStorage.clear();
-//           }}
-//         >
-//           Logout
-//         </button>
-//         <div>The list is empty!</div>;
-//       </>
-//     );
-//   }
-
-//   return (
-//     <div>
-//       <button
-//         onClick={() => {
-//           setUser(null);
-//           setToken(null);
-//           localStorage.clear();
-//         }}
-//       >
-//         Logout
-//       </button>
-//       {movies.map((movie) => (
-//         <MovieCard
-//           key={movie.id}
-//           movie={movie}
-//           onMovieClick={(newSelectedMovie) => {
-//             setSelectedMovie(newSelectedMovie);
-//           }}
-//         />
-//       ))}
-//     </div>
-//   );
-// };

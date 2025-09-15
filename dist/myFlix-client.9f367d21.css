@@ -6,6 +6,36 @@
   padding: 4px 12px;
 }
 
+.fav-movie {
+  margin-bottom: 15px;
+}
+
+.fav-movie figure {
+  width: 100%;
+  margin: auto;
+  position: relative;
+}
+
+.fav-movie figure img {
+  margin: auto;
+  display: block;
+}
+
+.fav-movie figure figcaption {
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.fav-movie button.btn {
+  margin: auto;
+  display: block;
+}
+
+.card {
+  margin-bottom: 15px;
+}
+
 .my-flix {
   color: #4682b4;
 }

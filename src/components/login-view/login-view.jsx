@@ -15,9 +15,7 @@ export const LoginView = ({ onLoggedIn }) => {
 
     fetch("https://tonys-flix-9de78e076f9d.herokuapp.com/login", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     })
       .then((response) => response.json())
@@ -63,7 +61,7 @@ export const LoginView = ({ onLoggedIn }) => {
         />
       </Form.Group> <br />
       <Button variant="primary" type="submit">
-        Submit
+        <strong>Submit</strong>
       </Button>
     </Form>
   );

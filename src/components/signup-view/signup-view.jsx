@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,14 +25,15 @@ export const SignupView = () => {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then((response) => {
-      if (response.ok) {
-        alert("Signup successful");
-        window.location.reload();
-      } else {
-        alert("Signup failed");
-      }
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Signup successful");
+          navigate("/login");
+        } else {
+          alert("Signup failed");
+        }
+      });
   };
 
   return (
@@ -82,7 +85,7 @@ export const SignupView = () => {
           required
         />
       </Form.Group> <br />
-      <Button variant="primary" type="submit">Submit</Button>
+      <Button variant="primary" type="submit"><strong>Submit</strong></Button>
     </Form>
   );
 };
