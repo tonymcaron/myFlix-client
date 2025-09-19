@@ -9,7 +9,10 @@ export const MovieCard = ({ movie, addFavorite, removeFavorite }) => {
       <Card.Img variant="top" src={movie.image} />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>Director: {movie.director}</Card.Text>
+        <Card.Text>
+          Director: {movie.director} <br />
+          {movie.featured && <strong>Featured movie</strong>}
+        </Card.Text>
         <Link to={`/movies/${movie.id}`}>
           <Button className="m-2" variant="link">View Details</Button>
         </Link>
