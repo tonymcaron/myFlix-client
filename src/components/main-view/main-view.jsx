@@ -26,9 +26,7 @@ export const MainView = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Raw movies from API:", data);
         const moviesFromApi = data.map(normalizeMovie);
-        console.log("Normalized movies:", moviesFromApi);
         setMovies(moviesFromApi);
       })
       .catch((err) => console.error("Error fetching movies:", err));
