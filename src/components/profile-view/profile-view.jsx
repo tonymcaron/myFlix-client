@@ -92,7 +92,6 @@ export const ProfileView = ({ movies, removeFavorite, onLoggedOut }) => {
         })
         .catch((err) => console.error("Error deleting account:", err));
     }
-
   };
 
   return (
@@ -208,8 +207,7 @@ export const ProfileView = ({ movies, removeFavorite, onLoggedOut }) => {
                   </Figure>
                   <Button
                     variant="secondary"
-                    onClick={() => removeFavorite(movie.id)}
-                  >
+                    onClick={() => removeFavorite(movie.id)}>
                     Remove From Favorites
                   </Button>
                 </Col>

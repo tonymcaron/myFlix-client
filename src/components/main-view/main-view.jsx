@@ -19,8 +19,6 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect triggered with token:", token);
-
     if (!token) return;
 
     fetch("https://tonys-flix-9de78e076f9d.herokuapp.com/movies", {
@@ -33,7 +31,7 @@ export const MainView = () => {
         console.log("Normalized movies:", moviesFromApi);
         setMovies(moviesFromApi);
       })
-    // .catch((err) => console.error("Error fetching movies:", err));
+      .catch((err) => console.error("Error fetching movies:", err));
   }, [token]);
 
   const addFavorite = (movieId) => {
