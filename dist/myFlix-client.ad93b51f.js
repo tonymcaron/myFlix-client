@@ -160,11 +160,11 @@
       });
     }
   }
-})({"hiyDA":[function(require,module,exports,__globalThis) {
+})({"bG4iA":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
-var HMR_SERVER_PORT = 1234;
+var HMR_SERVER_PORT = 56446;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "439701173a9199ea";
 var HMR_USE_SSE = false;
@@ -16415,7 +16415,7 @@ $RefreshReg$(_c, "MainView");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../movie-card/movie-card":"6BY1s","../movie-view/movie-view":"dkfGy","../login-view/login-view":"8ru9P","../signup-view/signup-view":"nAl3Z","../navigation-bar/navigation-bar":"csRzL","../profile-view/profile-view":"7ZITz","react-bootstrap":"ctEhb","react-router-dom":"61z4w","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","../../utils/normalizeMovie":"25i0R","../../utils/normalizeUser":"cL9JP"}],"6BY1s":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../movie-card/movie-card":"6BY1s","../movie-view/movie-view":"dkfGy","../login-view/login-view":"8ru9P","../signup-view/signup-view":"nAl3Z","../navigation-bar/navigation-bar":"csRzL","../profile-view/profile-view":"7ZITz","react-bootstrap":"ctEhb","react-router-dom":"61z4w","../../utils/normalizeMovie":"25i0R","../../utils/normalizeUser":"cL9JP","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"6BY1s":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$f387 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$f387.init();
 var prevRefreshReg = globalThis.$RefreshReg$;
@@ -34133,6 +34133,6 @@ const normalizeMovie = (movie)=>({
         featured: movie.Featured
     });
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"lJZlQ":[function() {},{}]},["hiyDA","gYcKb"], "gYcKb", "parcelRequireaec4", {}, null, null, "http://localhost:1234")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"lJZlQ":[function() {},{}]},["bG4iA","gYcKb"], "gYcKb", "parcelRequireaec4", {}, null, null, "http://localhost:56446")
 
 //# sourceMappingURL=myFlix-client.ad93b51f.js.map
